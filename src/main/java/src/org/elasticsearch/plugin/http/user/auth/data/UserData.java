@@ -22,7 +22,7 @@ public class UserData {
 	public UserData(String userName, String rawPassword) {
 		setUsername(userName);
 		setPassword(rawPassword);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
 		setCreated(sdf.format(new Date()));
 		Set<String> indices = Sets.newConcurrentHashSet();
 		setFilters(indices);
@@ -30,7 +30,7 @@ public class UserData {
 	public UserData(String userName, String rawPassword, Set<String> filters) {
 		setUsername(userName);
 		setPassword(rawPassword);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
 		setCreated(sdf.format(new Date()));
 		if (filters == null) {
 			filters = Sets.newConcurrentHashSet();
@@ -40,7 +40,7 @@ public class UserData {
 	public UserData(String userName, String rawPassword, String... filters) {
 		setUsername(userName);
 		setPassword(rawPassword);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
 		setCreated(sdf.format(new Date()));
 		if (filters == null) {
 			Set<String> filterSet = Sets.newConcurrentHashSet(Arrays.asList(filters));
@@ -64,7 +64,7 @@ public class UserData {
 		UserData user = new UserData();
 		user.username = username;
 		user.encPassword = encPassword;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
 		user.created = sdf.format(new Date());
 		user.indexFilters  = Sets.newConcurrentHashSet(Arrays.asList(indexFilters));
 		return user;
@@ -116,16 +116,16 @@ public class UserData {
 	
 	public String toJSON() {
 		if (created == null) {
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
-	        created = sdf.format(new Date());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+			created = sdf.format(new Date());
 		}
 		try {
 			return jsonBuilder()
-			.startObject()
+				.startObject()
 			    .field("username", username)
-			    .field("password", encPassword)
-			    .field("indices", indexFilters)
-			    .field("created", created)
+				.field("password", encPassword)
+				.field("indices", indexFilters)
+				.field("created", created)
 			.endObject().string();
 		} catch (IOException e) {
 		}

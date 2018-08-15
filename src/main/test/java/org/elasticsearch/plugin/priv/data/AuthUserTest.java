@@ -16,7 +16,7 @@ public class AuthUserTest {
 
 	@Test
 	public void authTest() {
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+		SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 		try {
 			System.out.println(sdf.parse("2015-09-06T03:06:36.458+09:00"));
 		} catch (ParseException e) {
