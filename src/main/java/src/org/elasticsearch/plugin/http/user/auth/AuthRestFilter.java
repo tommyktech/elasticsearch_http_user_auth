@@ -40,19 +40,19 @@ public class AuthRestFilter extends RestFilter {
 			if (username == null || password == null) {
 				BytesRestResponse resp = new BytesRestResponse(RestStatus.UNAUTHORIZED, "Needs Basic Auth");
 				resp.addHeader("WWW-Authenticate", "Basic realm=\"Http User Auth Plugin\"");
-		        channel.sendResponse(resp);
-	            Loggers.getLogger(getClass()).error("auth failed: " + request.path());
+				channel.sendResponse(resp);
+			    Loggers.getLogger(getClass()).error("auth failed: " + request.path());
 				return ;
 			}
 			
 			if (!username.equals("root")) {
-		        UserDataBridge userDataBridge = new UserDataBridge(client);
-		        if (!userDataBridge.isInitialized()) {
-			        channel.sendResponse(new BytesRestResponse(SERVICE_UNAVAILABLE, "http user auth initializing..."));
-			        return ;
-		        }
+				UserDataBridge userDataBridge = new UserDataBridge(client);
+				if (!userDataBridge.isInitialized()) {
+					channel.sendResponse(new BytesRestResponse(SERVICE_UNAVAILABLE, "http user auth initializing..."));
+					return ;
+				}
 			}
-	        
+			
 			UserAuthenticator userAuth = new UserAuthenticator(username, password);
 			if (userAuth.isValidUser()) {
 				boolean passAll = true;
@@ -67,19 +67,19 @@ public class AuthRestFilter extends RestFilter {
 				} else {
 					// forbidden path 
 					BytesRestResponse resp = new BytesRestResponse(RestStatus.FORBIDDEN, "Forbidden path");
-			        channel.sendResponse(resp);
+					channel.sendResponse(resp);
 				}
 			} else {
 				// auth failed 
 				BytesRestResponse resp = new BytesRestResponse(RestStatus.UNAUTHORIZED, "Needs Basic Auth");
 				resp.addHeader("WWW-Authenticate", "Basic realm=\"Http User Auth Plugin\"");
-		        channel.sendResponse(resp);
-	            Loggers.getLogger(getClass()).error("Invalid User: " + request.path());
+				channel.sendResponse(resp);
+			    Loggers.getLogger(getClass()).error("Invalid User: " + request.path());
 			}
 		} catch (Exception ex) {
-	        channel.sendResponse(new BytesRestResponse(RestStatus.INTERNAL_SERVER_ERROR, ""));
-            Loggers.getLogger(getClass()).error("", ex);
+			channel.sendResponse(new BytesRestResponse(RestStatus.INTERNAL_SERVER_ERROR, ""));
+		    Loggers.getLogger(getClass()).error("", ex);
 		}
-        return ;
+		return ;
 	}
 }

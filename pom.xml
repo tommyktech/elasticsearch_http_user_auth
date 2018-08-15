@@ -74,10 +74,10 @@
                 </executions>
             </plugin>
         </plugins>
-<!--         <resources> -->
-<!--             <resource> -->
-<!--                 <directory>src/site/</directory> -->
-<!--             </resource> -->
-<!--         </resources> -->
+        <resources>
+            <resource>
+                <directory>src/site/</directory>
+            </resource>
+        </resources>
     </build>
 </project>
