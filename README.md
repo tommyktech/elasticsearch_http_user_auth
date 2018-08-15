@@ -15,19 +15,19 @@ http.user.auth.disabled: false
 http.user.auth.root.password: rootpassword
 </pre>
 
-If you set `http.user.auth.disabled` to `true`, Elasticsearch doesn't load this plugin.  
-`http.user.auth.root.password` sets root user's password literally.  
-**Only the root user can access ES's root APIs (like /_cat, /_cluster) and all indices.**  
-Other users can access URLs under their own indices that are specified with this plugin's API.  
+If you set `http.user.auth.disabled` to `true`, your Elasticsearch instance won't load this plugin.  
+`http.user.auth.root.password` is a setting for root user's password literally.  
+**Only the root user can access Elasticsearch root APIs (like /_cat, /_cluster) and all indices.**  
+Other users can only access their own indices that are specified by an API of this plugin.  
 
-## Add username and password on HTTP requests
-The authentication method of this plugin is Basic Authentication. Therefore, you should add your username and password on URL string. 
+## Append username and password to HTTP requests
+The authentication method of this plugin is Basic Authentication. Therefore, you should add your username and password to URL strings. 
 
-For example, you can access the "You know, for search" API from *http://root:rootpassword@your.elasticsearch.hostname:9200/*
+For example, you can call "You know, for search" API like this: *http://root:rootpassword@your.elasticsearch.hostname:9200/*
 
-Plugins using ES's REST API also have to be set root password in their configurations.
+If you're using some other plugins which use Elasticsearch APIs, you may have to set your root password in their configurations.
 
-The ways of configuring Marvel and Kibana 4 are below: 
+For example, configs of Marvel and Kibana 4 shold be as below: 
 
 #### Marvel 
 elasticsearch.yml:
@@ -44,7 +44,7 @@ elasticsearch_url: "http://root:rootpassword@localhost:9200"
 
 ## User Management Console
 
-This plugin provides a web console which manages users. 
+This plugin provides a web console managing users and their own indices. 
 <pre>
 http://your.elasticsearch.hostname:9200/_plugin/http-user-auth-plugin/index.html
 </pre>
