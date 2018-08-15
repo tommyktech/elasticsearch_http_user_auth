@@ -213,8 +213,8 @@ public class UserDataBridge {
 	private boolean putUser(UserData user) {
 		String created = "";
 		if (user.getCreated() == null) {
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
-	        created = sdf.format(new Date());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZ");
+		created = sdf.format(new Date());
 		} else {
 			created = user.getCreated();
 		}
@@ -222,16 +222,16 @@ public class UserDataBridge {
 		try {
 			@SuppressWarnings("unused")
 			IndexResponse resp = client.prepareIndex(HTTP_USER_AUTH_INDEX, HTTP_USER_AUTH_TYPE, user.getUsername())
-			        .setSource(jsonBuilder()
-			                    .startObject()
-			                        .field("username", user.getUsername())
-			                        .field("password", user.getPassword())
-			                        .field("indices", user.getIndexFilters())
-			                        .field("created", created)
-			                    .endObject()
-			                  )
-			        .execute()
-			        .actionGet();
+						.setSource(jsonBuilder()
+					    .startObject()
+						.field("username", user.getUsername())
+						.field("password", user.getPassword())
+						.field("indices", user.getIndexFilters())
+						.field("created", created)
+					    .endObject()
+					  )
+				.execute()
+				.actionGet();
 			reloadUserDataCache();
 			return true;
 		} catch (ElasticsearchException e) {
@@ -244,9 +244,9 @@ public class UserDataBridge {
 	
 	private UserData getUser(String userName) {
 		GetResponse response = client.prepareGet(HTTP_USER_AUTH_INDEX, HTTP_USER_AUTH_TYPE, userName)
-		        .setOperationThreaded(false)
-		        .execute()
-		        .actionGet();
+				.setOperationThreaded(false)
+				.execute()
+				.actionGet();
 		if (response.isExists()) {
 			Map<String, Object> source = response.getSource();
 			return getUserDataFromESSource(source);
@@ -257,8 +257,8 @@ public class UserDataBridge {
 
 	public boolean deleteUser(String userName) {
 		DeleteResponse response = client.prepareDelete(HTTP_USER_AUTH_INDEX, HTTP_USER_AUTH_TYPE, userName)
-		        .execute()
-		        .actionGet();
+				.execute()
+				.actionGet();
 		if (response.isFound()) {
 			reloadUserDataCache();
 			return true;
@@ -303,8 +303,8 @@ public class UserDataBridge {
 			SearchResponse res = client.prepareSearch()
 					.setIndices(HTTP_USER_AUTH_INDEX)
 					.setTypes(HTTP_USER_AUTH_TYPE)
-			        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-			        .setQuery(QueryBuilders.matchAllQuery())
+					.setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+					.setQuery(QueryBuilders.matchAllQuery())
 					.setSize(100)
 					.execute()
 					.actionGet();

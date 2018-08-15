@@ -11,7 +11,7 @@ import org.elasticsearch.plugins.AbstractPlugin;
 public class HttpUserAuthPlugin extends AbstractPlugin {
     private Settings settings;
     @Inject public HttpUserAuthPlugin(Settings settings) {
-        this.settings = settings;
+		this.settings = settings;
     }
 	public String description() {
 		return "Http User Auth plugin";
@@ -24,22 +24,22 @@ public class HttpUserAuthPlugin extends AbstractPlugin {
     @Override
     public Collection<Class<? extends Module>> modules() {
     	String isPlaginDisabled = settings.get("http.user.auth.disabled");
-        Loggers.getLogger(getClass()).info("http.user.auth.disabled: " + isPlaginDisabled);
-        
+		Loggers.getLogger(getClass()).info("http.user.auth.disabled: " + isPlaginDisabled);
+		
     	if (isPlaginDisabled != null && isPlaginDisabled.toLowerCase().equals("true")) {
-            Loggers.getLogger(getClass()).warn("http-user-auth plugin is disabled");
+		    Loggers.getLogger(getClass()).warn("http-user-auth plugin is disabled");
     		return Lists.newArrayList();
     	} else {
-        	String rootPassword = settings.get("http.user.auth.root.password");
-        	if (rootPassword != null && !rootPassword.equals("")) {
-        		UserAuthenticator.setRootPassword(rootPassword);
-        		UserAuthenticator.loadRootUserDataCacheOnStart();
-        	}
+			String rootPassword = settings.get("http.user.auth.root.password");
+			if (rootPassword != null && !rootPassword.equals("")) {
+				UserAuthenticator.setRootPassword(rootPassword);
+				UserAuthenticator.loadRootUserDataCacheOnStart();
+			}
     		
-            Collection<Class<? extends Module>> modules = Lists.newArrayList();
-            modules.add(AuthRestModule.class);
-            Loggers.getLogger(getClass()).info("http-user-auth plugin is enabled");
-            return modules;
+		    Collection<Class<? extends Module>> modules = Lists.newArrayList();
+		    modules.add(AuthRestModule.class);
+		    Loggers.getLogger(getClass()).info("http-user-auth plugin is enabled");
+		    return modules;
     	}
     }
 }
