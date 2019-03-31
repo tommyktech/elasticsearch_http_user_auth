@@ -1,4 +1,4 @@
-# Elasticsearch HTTP Basic User Auth plugin (and its web console)
+# Elasticsearch (<= 2.4) HTTP Basic User Auth plugin (and its web console)
 
 Elasticsearch user authentication plugin with http basic auth.
 This plugin provides user authentication APIs and its web console. 
